@@ -1,0 +1,246 @@
+% ===============================================
+% MATH 373: Intro to Numerical Analysis           Fall 2021
+% prog_testing_template.tex
+% June 7, 2021
+% ===============================================
+
+% -------------------------------------------------------------------------
+% You can ignore this preamble. Go on
+% down to the section that says "START HERE" 
+% -------------------------------------------------------------------------
+
+\documentclass{article}
+
+% load packages
+\usepackage{amsmath,amsfonts,graphicx,amsthm,amssymb,hyperref,xcolor}
+
+% Define default environments
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{claim}[2][Claim]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+%adjust to 1 in margins
+  \addtolength{\oddsidemargin}{-.875in}
+   \addtolength{\evensidemargin}{-.875in}
+    \addtolength{\textwidth}{1.75in}
+
+    \addtolength{\topmargin}{-.875in}
+    \addtolength{\textheight}{1.75in}
+    
+% Define Shortcuts
+\def\ds{\displaystyle}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+\begin{document}
+
+
+
+% ------------------------------------------ %
+%                 START HERE             %
+% ------------------------------------------ %
+\large
+
+{\Large Math 373, Introduction to Numerical Analysis}
+
+\begin{center}
+{\Large Author: \hfill Amanda Lauen} % Replace "Author's Name" with your name
+\end{center}
+\par \medskip \par
+{\Large Programming Assignment: 1} 
+\par \bigskip \par
+
+% Complete summary and remove the instructions in red
+{\bf Summary:} {\color{black} The assignment entailed was to build a program that created the closest binary bit string of length 12.  This program was similar to the binary expansion of a number using the methods presented in class.  The numerical methods required were to utilize the mantissa component of the IEE single-precision format.  The mantissa component of the IEE single-precision format is a part of machine arithmetic which lecture 3 of the notes provided by Dr. Kyle Riley [KR21] entailed.  Additionally, lecture 3.2 in the lecture videos provided by Dr. Kyle Riley [KR21] also visually explained machine arithmetic.} 
+\par \bigskip \par
+
+% Complete methods and remove the instructions in red
+{\bf Methods:} {\color{black} The methods used in this program surround the ideas of machine arithmetic.  The possible outcomes of this mathematical problem are a 12-bit string with a remainder term, a 12-bit string with no remainder term, or a 12-bit string that is invalid due to the interval in which it is supposed to be within.  In this program, the first outcome is a binary string with a length of 12.  The second result is a flag represented via a zero or one.  The last outcome is a remainder term calculated within the code and printed along with the flag and binary string. These three outputs are produced and printed in the command window when the code is running correctly.
+}
+\par \bigskip \par
+     {\color{black}  The code presents two flags to indicate if the output is acceptable or not.  If the flag is zero, then the output is fine and will run properly.  If the flag is one, however, then the x value inputted is outside the given interval in the code.  The given interval was determined by setting an xmin and xmax term and comparing them in an if statement to the entered x.  I initialized the xmin as 2\textsuperscript{-12} (decimal form being 0.000244140625).  I then initialized the xmax as the largest possible number that could be represented via a 12-bit string (in this case, the number being 0.999755859375).  
+     }
+ \par \bigskip \par  
+     {\color{black} I made this program as efficient as possible by storing the binary number into a column vector using the NaN function [Matlab].  I also ensured it was efficient using the fix function to round towards 0 to ensure that the correct binary number prints in the binary string [Matlab].  By using these two functions helped me ensure that the program was proficient in its calculations.
+     
+}
+\par \bigskip \par
+
+
+% Complete testing and analysis, please remove the instructions in red
+{\bf Testing and Analysis:} {\color{black} I tested my program by first calculating binary strings by hand to see the result and then testing them on my program to see if they matched.  One example of an x-value used was the number 0.6875.  In order to find the binary string representing x, one way is to multiply it by two consecutively and keep the integer part of the result.  By doing this process with the number 0.6875, the binary number retrieved was [1 0 1 1 0 0 0 0 0 0 0 0].  Then I found the x\textsubscript{c} term.  I determined this term by taking the integer value of where the ones are located in the problem and adding them to make sure it adds up to the original number, in this case, 0.6875.  Finally, we find the remainder term, r, by subtracting the original x value entered in versus the x\textsubscript{c} term to see if there is any remainder or not.  This process of hand calculation and code proof will be explained further in the Appendix.  }
+\par \bigskip \par
+
+%Hit list is optional, but is evidence of higher learning, developing strong skills in reviewing are extremely valuable. Please remove instructions in red.
+{\bf Hit List: }{\color{black} The missing or known problems I have with my code are if I included the endpoints or not.  I was very wary about whether I included them or not and was unsure how to include them.  I also would have tried to work with the equation given in the instructions a bit more.  I stayed away from it since I was confused about the printing and calculations of the remainder term within the for loop given in the proga1.m file given by Dr. Riley [KR21].  If I had more time to work on this code, I would have tried to include the endpoints unless I already did, which in that case, is excellent.  If not, I would like to work on that more to make sure that I effectively know how to do it for future programs.  I also would have tried to work around the for loop and determine where the remainder could be calculated and not research other ways to solve this problem.  I believe these changes would have helped remedy the potential problems for the final version of my program.}
+\par \bigskip \par
+
+%Integrity Statement Leave the statement in red and follow it with ``I affirm that this program submission complies with the integrity specifications of this assignment. I understand if I am in violation of the integrity specification then I will get a zero on the assignment and receive an overall reduction in my course grade by one letter grade. ``
+
+{\bf Academic Integrity}: {\color{black} The goal of this assignment is that everyone write their own code. This means you should not copy any code from any other source (the only exception are the templates provided by the instructor.) If you copy any code then you are in violation of integrity specifications of this assignment. If you provide your code to others then you are also in violation of the integrity rules of this assignment. }
+\par \bigskip \par
+      {\color{black} I affirm that this program submission complies with the integrity specifications of this assignment. I understand if I am in violation of the integrity specification then I will get a zero on the assignment and receive an overall reduction in my course grade by one letter grade
+      }.
+
+% Add references here, list alphabetically according to last name of primary author.
+\section*{References}
+\beginrefs
+
+\bibentry{KR21} {\sc Kyle Riley}, Class Lecture, Math 373: Introduction to Numerical Analysis, Lecture, August 2021. 
+\bibentry{Matlab} {\sc Matlab website}, \href{https://www.mathworks.com/help/matlab/ref/fix.html?s_tid=srchtitle_fix\%20function_1}{Fix Function}, September 2021. % put exact and full link in the first listing right after href
+\bibentry{Matlab} {\sc Matlab website}, \href{https://www.mathworks.com/help/matlab/ref/nan.html?s_tid=srchtitle_NaN\%20function_1}{NaN Function}, September 2021. % put exact and full link in the first listing right after href
+
+\endrefs
+
+\bigskip \par \bigskip
+%%%------------------------------------------------------
+%  Appendix, remove the red comments when completing this section. 
+%%----------------------------------------------------------
+{\Large {\bf Appendix}} \par \medskip
+
+{\color{black}  As stated in the Testing and Analysis portion of this report, I calculated example x values that could be entered into my program by hand and double checked to see if they would correspond with the program I built.  I will expand upon the first example from the Testing and Analysis portion, which is when x = 0.6875.  The way I calculated this by hand was that I multiplied 0.6875 by 2 consecutively and kept the integer part of the result.  I kept the result until the result was 0.  The following work was done:
+\par \medskip
+    {\color{black} 0.6875 x 2 = 1.375 = 1 + 0.375, b1 = 1
+    \par \medskip
+0.375 x 2 = 0.75 = 0 + 0.75, b2 = 0
+\par \medskip
+0.75 x 2 = 1.5 = 1 + 0.5, b3 = 1
+\par \medskip
+0.5 x 2 = 1 = 1 + 0, b4 = 1
+\par \medskip
+0 x 2 = 0 = 0 + 0, b5 = b6 = b7 = b8 = b9 = b10 = b11 = b12 = 0
+\par \medskip
+    }
+\par \medskip
+      {\color{black} After these calculations, I constructed the binary string b to be:
+      }
+\par \medskip
+    {\color{black} b= [1 0 1 1 0 0 0 0 0 0 0 0]
+    }
+\par \medskip
+      {\color{black} I then calculated an x\textsubscript{c} term that calculated the given x value via the exponents given if taken from the binary string.  In this case, the x\textsubscript{c} was:
+      }
+\par \medskip
+{\color{black} $x_c=2^{-1}+2^{-3}+2^{-4}=0.6875$
+}
+\par \medskip
+      {\color{black} Finally, I calculated the remainder term, r, by subtracting the initial x given in the command window and subtracted it by the x\textsubscript{c} term calculated above.  The remainder term indicated that there was no remainder since 0.6875 – 0.6875 = 0.  
+      }
+\par \medskip      
+      {\color{black} To prove that these calculations were correct, I ran the number 0.6875 through my code and got the following results:
+      }
+\par \medskip
+{\color{black}  
+[flag, b, r] = proga820474(0.6875)
+\par \medskip
+flag =
+     0
+\par \medskip
+b =
+     1
+     0
+     1
+     1
+     0
+     0
+     0
+     0
+     0
+     0
+     0
+     0
+\par \medskip
+r =
+     0
+}
+\par \medskip
+      {\color{black}  An example representing an input where x is out of bounds is the number 1e-4.  The code presented from entering in 1e-4 as the x value is as follows:
+      }
+\par \medskip
+{\color{black}
+[flag, b, r] = proga820474(1e-4)
+\par \medskip
+flag =
+     1
+\par \medskip
+b =
+    -1
+\par \medskip
+r =
+    -9
+}
+\par \medskip
+      {\color{black} This output code represents that the number 1e-4 is out of bounds and prints out the appropriate error code listed in the initial instructions. 
+      }
+\par \medskip
+      {\color{black}  The final example in which the code prints out a number other than one for the remainder term is when x = 0.8.  When putting in x = 0.8, the code results are:
+      }
+\par \medskip
+{\color{black}
+[flag, b, r] = proga820474(0.8)
+\par \medskip
+flag =
+     0
+\par \medskip
+b =
+     1
+     1
+     0
+     0
+     1
+     1
+     0
+     0
+     1
+     1
+     0
+     0
+\par \medskip
+r =
+   0.00019531
+ }
+\par \medskip
+      {\color{black} The output indicates that there is a remainder term when x = 0.8 and prints it accordingly. 
+      }
+\par \medskip
+      {\color{black}      I then tested my code with the following other numbers: -2.5, 3, 1-1e-4, 0.5, 0.125, and 0.43542.  These values represent all the cases in which the code can present the correct flags when needed, calculate the remainder efficiently, and produce the correct binary string relative to the given x value.
+      }
+\par \medskip
+      {\color{black}  From the above example calls of function, I concluded that: 
+	    \par \medskip
+	    1. The binary strings found by the function for the examples done by hand are the same. 
+	    \par \medskip
+	    2. When the input value to the function is out of bounds, it provides the desired results.
+	    \par \medskip
+	    3. When the input value to the function is within the bounds, the remainder is tiny.  
+	    \par \medskip
+	  }
+\par \medskip
+	  {\color{black} Thus, the code and the calculations by hand prove that the program is producing accurate calculations.
+     }
+} 
+
+\par \medskip
+
+
+
+% ---------------------------------------------------
+% Anything after the \end{document} will be ignored by the typesetting.
+% ----------------------------------------------------
+
+\end{document}
